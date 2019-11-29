@@ -45,7 +45,7 @@ void UpdateCallback(status_message_t message)
 	for (it = message.app_status_msgs.begin(); it != message.app_status_msgs.end(); ++it)
 	{
 		app_parser m_app(*it);
-		std::cout << it->tasks.size() << std::endl;
+		std::cout << m_app.to_json_string() << std::endl;
 	}
 
 	std::cout << " model : " << message.res_status_msgs.front().model << " fans: " << message.res_status_msgs.front().fans << std::endl;
