@@ -41,13 +41,6 @@ void UpdateCallback(status_message_t message)
 	std::cout << timestamp << std::endl;
 	//std::cout << res_status_number << std::endl;
 
-	std::list<app_status_t>::iterator it;
-	for (it = message.app_status_msgs.begin(); it != message.app_status_msgs.end(); ++it)
-	{
-		app_parser m_app(*it);
-		std::cout << m_app.to_json_string() << std::endl;
-	}
-
 	std::cout << " model : " << message.res_status_msgs.front().model << " fans: " << message.res_status_msgs.front().fans << std::endl;
 	std::list<resource_status_t>::iterator bf;
 	for (bf = message.res_status_msgs.begin(); bf != message.res_status_msgs.end(); ++bf)
@@ -55,6 +48,14 @@ void UpdateCallback(status_message_t message)
 		resource_parser rs_parser(*bf);
 		sendHTTPRequest("resources", rs_parser.to_json_string());
 		// Send http client message
+	}
+
+	std::list<app_status_t>::iterator it;
+	for (it = message.app_status_msgs.begin(); it != message.app_status_msgs.end(); ++it)
+	{
+		app_parser m_app(*it);
+		sendHTTPRequest("apps", m_app.to_json_string());
+		std::cout << m_app.to_json_string() << std::endl;
 	}
 
 	// DataClient::GetResourcePathString(res_bitset_t res)

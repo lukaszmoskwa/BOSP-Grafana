@@ -16,11 +16,7 @@ router.get("/", (req, res) => {
   })
 });
 
-/**
- * Endpoint handling the login.
- *  - Development: the token is passed as JSON for the Authorization header
- *  - Production: the token is set in a HttpOnly secure cookie
- */
+
 router.post("/", (req, res) => {
   const {
     bbq_id,
