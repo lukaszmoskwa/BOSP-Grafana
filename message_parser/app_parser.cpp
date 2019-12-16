@@ -13,6 +13,7 @@ std::string app_parser::to_json_string()
 {
     std::map<std::string, std::string> map = {
         {"id", std::to_string(id)},
+        {"state", std::to_string(state)},
         {"name", json_utils::quote(name)},
         {"mapping", mapping_to_json()},
         {"tasks", tasks_to_json()}};

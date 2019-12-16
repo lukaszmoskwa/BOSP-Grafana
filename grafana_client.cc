@@ -17,14 +17,19 @@ uint8_t raw_print;
 std::mutex mtx;
 std::condition_variable cv;
 std::list<status_message_t> messages_list;
+std::string grafana_endpoint;
 
+/**
+ * Send an http request to the given endpoint with passed content 
+ * @param endpoint Endpoint for the HTTP request
+ * @param content Content to be sent
+ * */
 void sendHTTPRequest(std::string endpoint, std::string content)
 {
 	try
 	{
-		std::string request_url = "http://localhost:3131/" + endpoint;
+		std::string request_url = grafana_endpoint + endpoint;
 		http::Request request(request_url);
-		//std::cout << content << std::endl;
 		const http::Response post = request.send("POST", content, {"Content-Type: application/json"});
 	}
 	catch (const std::exception &e)
@@ -33,13 +38,13 @@ void sendHTTPRequest(std::string endpoint, std::string content)
 	}
 }
 
+/**
+ * Function called upon receiving data from the bbque daemon
+ * */
 void UpdateCallback(status_message_t message)
 {
-	//std::string model;
 	std::uint32_t timestamp = message.ts;
-	//std::uint32_t res_status_number = message.n_app_status_msgs;
 	std::cout << timestamp << std::endl;
-	//std::cout << res_status_number << std::endl;
 
 	std::cout << " model : " << message.res_status_msgs.front().model << " fans: " << message.res_status_msgs.front().fans << std::endl;
 	std::list<resource_status_t>::iterator bf;
@@ -47,7 +52,6 @@ void UpdateCallback(status_message_t message)
 	{
 		resource_parser rs_parser(*bf);
 		sendHTTPRequest("resources", rs_parser.to_json_string());
-		// Send http client message
 	}
 
 	std::list<app_status_t>::iterator it;
@@ -57,8 +61,6 @@ void UpdateCallback(status_message_t message)
 		sendHTTPRequest("apps", m_app.to_json_string());
 		std::cout << m_app.to_json_string() << std::endl;
 	}
-
-	// DataClient::GetResourcePathString(res_bitset_t res)
 }
 
 int main(int argc, char *argv[])
@@ -84,6 +86,10 @@ int main(int argc, char *argv[])
 		num_messages = atoi(argv[7]);
 	else
 		num_messages = MESS_NUM_MAX;
+	if (argv[8])
+		grafana_endpoint = argv[8];
+	else
+		grafana_endpoint = "http://localhost:3131/";
 
 	// Data client instance creation
 	DataClient data_client(server_IP, server_port, client_port, UpdateCallback);

@@ -6,9 +6,11 @@ const BBQresource = seq.BBQresource;
 const isDevelopment = require('../environment').isDevelopment;
 const chalk = require('chalk')
 
+/**
+ * Handler for the resources GET requests
+ */
 router.get("/", (req, res) => {
   BBQresource.findAll().then(result => {
-    //result = result.get({plain: true})
     res.send(result).end();
   }).catch(err => {
     console.log(err)
@@ -16,7 +18,9 @@ router.get("/", (req, res) => {
   })
 });
 
-
+/**
+ * Handler for the resources POST requests
+ */
 router.post("/", (req, res) => {
   const {
     bbq_id,

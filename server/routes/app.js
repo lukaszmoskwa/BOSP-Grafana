@@ -7,6 +7,9 @@ const BBQapp = seq.BBQapp;
 const isDevelopment = require('../environment').isDevelopment;
 const chalk = require('chalk');
 
+/**
+ * Handler for the applications GET requests
+ */
 router.get('/', (req, res) => {
   BBQapp.findAll()
     .then((result) => {
@@ -19,11 +22,13 @@ router.get('/', (req, res) => {
     });
 });
 
+/**
+ * Handler for the applications POST requests
+ */
 router.post('/', async (req, res) => {
-  const { id, name, mapping, tasks } = req.body;
+  const { id, name, state, mapping, tasks } = req.body;
   for (let resource_id of mapping) {
     try {
-      //
       let single_id = await BBQid.findOrCreate({
         where: resource_id,
       });
@@ -34,7 +39,7 @@ router.post('/', async (req, res) => {
       const succ = await BBQapp.create({
         pid: id,
         name,
-        state: name,
+        state,
         bbq_id,
       });
       if (isDevelopment) {
@@ -54,17 +59,6 @@ router.post('/', async (req, res) => {
       console.log(err);
     }
   }
-
-  /*let sys_string = `sys${bbq_id.sys}.group${
-    bbq_id.bbq_group
-  }.${bbq_id.type_string.toLowerCase()}${bbq_id.unit_id}.pe${bbq_id.pe_id}`;
-  if (isDevelopment) {
-    console.log(
-      chalk.underline.greenBright(
-        'Message: ' + bbq_id.type_string + ' for ' + sys_string,
-      ),
-    );
-  }*/
   res.sendStatus(200).end();
 });
 

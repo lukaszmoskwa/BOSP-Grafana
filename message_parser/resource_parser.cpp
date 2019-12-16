@@ -12,18 +12,11 @@ resource_parser::resource_parser(resource_status_t &message)
     std::string path = DataClient::GetResourcePathString(bbq_id);
 
     this->model = path;
-    this->occupancy = 0;
-    this->load = 99;
-    this->power = 77;
-    this->temp = 12;
-    this->fans = 44;
-
-    //this->model = message.model;
-    this->occupancy = message.occupancy;
-    this->load = (message.load > 100) ? 77 : message.load;
-    this->power = message.power;
-    //this->temp = message.temp;
-    this->fans = message.fans;
+    this->occupancy = (message.occupancy > 100) ? 0 : message.occupancy;
+    this->load = (message.load > 100) ? 0 : message.load;
+    this->power = (message.power > 100) ? 0 : message.power;
+    this->temp = (message.temp > 100) ? 0 : message.temp;
+    this->fans = (message.fans > 100) ? 0 : message.fans;
 }
 
 std::string resource_parser::id_parser(res_bitset_t message_id)
