@@ -1,0 +1,26 @@
+{
+  "type": "panel",
+  "name": "Tree Table",
+  "id": "tree-table-angular",
+
+  "info": {
+    "description": "A table visualization with nesting tree",
+    "author": {
+      "name": "Lukasz Moskwa"
+    },
+    "keywords": [ "discrete", "events", "strings" ],
+    "logos": {
+      "small": "img/logo2.png",
+      "large": "img/logo2.png"
+    },
+    "links": [],
+    "screenshots": [],
+    "version": "0.0.1",
+    "updated": "2019-12-13"
+  },
+
+  "dependencies": {
+    "grafanaVersion": "6.3.x",
+    "plugins": [ ]
+  }
+}

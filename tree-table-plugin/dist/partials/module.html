@@ -1,0 +1,38 @@
+<style>
+  table {
+    border: 1px solid white;
+  }
+  th,
+  tr,
+  td {
+    padding: 10px !important;
+    margin: 3px;
+    border: 1px solid white;
+  }
+  .thead {
+    background: lightblue;
+    color: black;
+  }
+</style>
+
+<div>
+  <table>
+    <tr class="thead">
+      <th>App PID</th>
+      <th>App name</th>
+      <th>App state</th>
+      <th ng-repeat="val in ctrl.panel.bbq_cols">
+        {{val.type_string}} {{val.pe_id}}
+      </th>
+    </tr>
+    <tr ng-repeat="apid in ctrl.panel.bbq_app_array">
+      <td>{{apid}}</td>
+      <td>{{ctrl.panel.bbq_final[apid].app_name}}</td>
+      <td>{{ctrl.panel.bbq_final[apid].app_state}}</td>
+      <td ng-style="(sing.occupancy > 70) ? {'background': 'lightgreen', 'color': 'black'} : {}"
+       ng-repeat="sing in ctrl.panel.bbq_final[apid].resources">
+        {{sing.occupancy}}
+      </td>
+    </tr>
+  </table>
+</div>

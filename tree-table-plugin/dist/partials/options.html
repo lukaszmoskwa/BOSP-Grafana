@@ -1,0 +1,38 @@
+<div class="editor-row">
+  <div class="section gf-form-group">
+    <h5 class="section-heading">Display</h5>
+    <div class="gf-form">
+      <label class="gf-form-label width-6">Text</label>
+      <input type="text" ng-model="ctrl.panel.text" class="gf-form-input" ng-blur="ctrl.render()" min="1" />
+    </div>
+    <h5 class="section-heading">Query 1</h5>
+    <div class="gf-form">
+      <textarea>
+        SELECT
+  bbq_apps.pid AS "app_pid",
+  bbq_apps.name AS "app_name",
+  bbq_apps.state AS "app_state",
+  bbq_apps.bbq_id,
+  bbq_resources.occupancy
+FROM bbq_apps
+inner join bbq_resources on bbq_resources.bbq_id = bbq_apps.bbq_id
+WHERE bbq_apps.created_at = (SELECT max(created_at)
+                    FROM bbq_apps AS ba2
+                    WHERE ba2.pid = bbq_apps.pid) and bbq_apps.created_at = bbq_resources.created_at
+ORDER BY bbq_apps.created_at DESC
+      </textarea>
+    </div>
+    <h5 class="section-heading">Query 2</h5>
+    <div class="gf-form">
+      <textarea>
+        SELECT DISTINCT
+  bbq_ids.id as "bbq_id",
+  bbq_ids.type_string as "res_name",
+  bbq_ids.unit_id as "unit_id",
+  bbq_ids.pe_id as "pe_id"
+FROM bbq_apps
+inner join bbq_ids on bbq_apps.bbq_id = bbq_ids.id
+      </textarea>
+    </div>
+  </div>
+</div>
