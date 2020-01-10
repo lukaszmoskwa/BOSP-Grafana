@@ -56,7 +56,7 @@ router.post("/", (req, res) => {
     }).then(() => {
       res.sendStatus(200).end()
     }).catch((err) => {
-      console.log("Errore nella creazione di qualcosa " + err)
+      console.log("Error with creation of id or resource " + err)
       res.sendStatus(400).end()
     })
 

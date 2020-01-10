@@ -5,7 +5,7 @@ const BBQAppModel = require('./models/bbq-app');
 const chalk = require('chalk');
 const isDevelopment = require('./environment').isDevelopment;
 
-const sequelize = new Sequelize('bosp', 'freelance', 'prova123', {
+const sequelize = new Sequelize('<db-name>', '<db-user>', '<db-password>', {
   host: 'localhost',
   dialect: 'mysql',
   logging: false,

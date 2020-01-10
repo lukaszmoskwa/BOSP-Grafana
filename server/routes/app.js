@@ -13,7 +13,6 @@ const chalk = require('chalk');
 router.get('/', (req, res) => {
   BBQapp.findAll()
     .then((result) => {
-      //result = result.get({plain: true})
       res.send(result).end();
     })
     .catch((err) => {
