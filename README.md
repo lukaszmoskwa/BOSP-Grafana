@@ -123,8 +123,6 @@ There is also an additional eighth parameter that has been added to customize th
 
 The port in question can also be modified directly on the index.js file inside the server folder.
 
-Translated with www.DeepL.com/Translator (free version)
-
 ```bash
 # Example
 ./grafana_client 127.0.0.1 30200 30100 3 0 1000 3 \
