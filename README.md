@@ -118,7 +118,12 @@ Then start the data client with the necessary parameters
 ./grafana_client 127.0.0.1 30200 30100 3 0 1000 3
 ```
 
-In addition to these parameters, a new one has been added to allow the Data Client to know where the server to which the data is to be sent is located. This last parameter, if omitted, will be set automatically at http://locahost:3131/ (Note that in addition to the host is both the protocol and the port are specified)
+The first 7 parameters that can be seen are those of the original BOSP data client and are documented at the following address: https://bosp.deib.polimi.it/doku.php?id=docs:api:dci#compilation.
+There is also an additional eighth parameter that has been added to customize the address of the NodeJS server to which the data collected by Barbeque is sent: when this is not entered, by default it corresponds to http://locahost:3131/ (Note that in addition to the host is both the protocol and the port are specified). In this case it is assumed that the Nodes server that saves the database information is on the local machine running on port 3131.
+
+The port in question can also be modified directly on the index.js file inside the server folder.
+
+Translated with www.DeepL.com/Translator (free version)
 
 ```bash
 # Example
