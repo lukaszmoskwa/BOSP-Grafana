@@ -74,7 +74,21 @@ const sequelize = new Sequelize('bosp-db',
 });
 ```
 
+#### Plugin setup
 
+To install the plugin correctly you need to move the tree-table-plugin folder to the default location. By default, this corresponds to /var/lib/grafana/plugins.
+
+```bash
+cp tree-table-plugin/ /var/lib/grafana/plugins/
+```
+
+Then restart the grafana service (if already started)
+
+```bash
+sudo service grafana-server restart
+```
+
+Once this is done, the plugin is available in the dashboard
 
 #### Application launch
 
